@@ -303,3 +303,93 @@ This study delivers a practical and standards-aligned approach to password analy
 - Dictionary file: `common_passwords.txt` (subset of rockyou).  
 - Execution: `python case_study_password_tool.py`.  
 - Sample command transcript and environment notes available upon request.
+
+---
+
+## Extended Addendum: Advanced Content and Enhancements
+
+This addendum expands the report with deeper technical details, additional diagrams, ethical attack simulations, visualization guidance, policy templates, and future trends in password security.
+
+### A. Advanced Methodology Details
+- Bulk analysis mode: process newline-separated inputs and aggregate metrics (weak count, average entropy, dictionary matches).
+- Pattern penalties: subtract points for repeated characters, sequential runs (e.g., 'abcd', '1234'), and keyboard walks (e.g., 'qwerty').
+- Breach screening: integrate Have I Been Pwned range API (k-anonymity); never transmit full hashes.
+- Usability alignment: emphasize length and passphrases over rigid composition to align with NIST SP 800-63B.
+
+### B. Ethical Attack Simulation (Demonstration Only)
+- Dictionary simulation: run inputs against curated lists (e.g., `rockyou.txt`, SecLists) in a controlled environment.
+- Brute-force scope: demonstrate on small synthetic sets only; never target real accounts or systems.
+- Purpose: illustrate risk of low-entropy and common passwords without engaging in unauthorized activity.
+
+### C. Visualization of Results (Optional)
+- Bar chart: distribution across Very Weak, Weak, Reasonable, Strong, Very Strong.
+- Pie chart: dictionary-matched vs non-matched passwords.
+- Histogram: entropy distribution to identify central tendencies and outliers.
+
+Example (Python outline):
+```python
+import matplotlib.pyplot as plt
+strength_buckets = {"Very Weak": 12, "Weak": 21, "Reasonable": 34, "Strong": 23, "Very Strong": 10}
+plt.bar(strength_buckets.keys(), strength_buckets.values())
+plt.title("Password Strength Distribution")
+plt.ylabel("Count")
+plt.xticks(rotation=15)
+plt.tight_layout()
+plt.show()
+```
+
+### D. Additional Code: Salted Hash Demonstration
+```python
+import hashlib, os
+
+def salted_sha256(password: str) -> tuple[str, str]:
+    salt = os.urandom(16)
+    digest = hashlib.sha256(salt + password.encode()).hexdigest()
+    return salt.hex(), digest
+
+if __name__ == "__main__":
+    salt_hex, digest = salted_sha256("SecurePass123!")
+    print("Salt:", salt_hex)
+    print("SHA-256(salt||password):", digest)
+```
+Note: For production storage, prefer Argon2id/scrypt/bcrypt with per-user salts and calibrated parameters.
+
+### E. Policy Templates (Copy-ready)
+- Minimum length: 12 (16+ for privileged accounts).
+- Composition: allow all printable ASCII; use strength meters; avoid arbitrary composition mandates.
+- Reuse: prohibit reuse of last 5 passwords.
+- Rotation: no periodic changes unless compromise suspected (NIST).
+- Screening: check proposed passwords against breached lists.
+- Storage: Argon2id (preferred) or bcrypt with unique salts.
+- MFA: mandatory for admin, remote, and high-risk access.
+- Lockout: 5–6 failed attempts with exponential backoff.
+- Transport: TLS 1.3+; HSTS enabled.
+- Audits: quarterly strength sampling, annual policy review.
+
+### F. Future Trends and Recommendations
+- Passwordless authentication (FIDO2/WebAuthn) adoption to reduce password surface.
+- Behavioral analytics and continuous authentication to detect anomalies.
+- AI/ML-assisted risk scoring for password submissions.
+- Quantum-safe cryptography roadmap for related cryptographic controls.
+
+### G. Use-Case Context Diagram (Figure A1)
+```mermaid
+flowchart LR
+  User -->|submit password| CLI_Tool
+  CLI_Tool -->|check| Dictionary[(Wordlists)]
+  CLI_Tool -->|compute| EntropyCalc[(Entropy)]
+  CLI_Tool -->|derive| Hashing[(Salted Hash)]
+  CLI_Tool -->|emit| Report[[Findings & Recommendations]]
+```
+Figure A1: Context of user interaction with the CLI tool and data stores.
+
+### H. Operational Checklist
+- Validate runtime environment and secured workstation.
+- Maintain curated breached lists for screening.
+- Log only metadata (counts/metrics), never plaintext passwords.
+- Secure disposal of temporary files and outputs.
+- Periodically recalibrate entropy thresholds and policy mappings.
+
+---
+
+This addendum is intended to enhance academic rigor and provide practical pathways for enterprise adoption without compromising ethical and legal boundaries.
