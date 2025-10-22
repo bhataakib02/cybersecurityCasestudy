@@ -111,6 +111,7 @@ NIST SP 800-63B discourages arbitrary composition rules and periodic forced chan
 
 ### 6.1 Process Flow (Figure 1)
 ```mermaid
+%%{init: { 'flowchart': { 'curve': 'linear' } } }%%
 flowchart TD
   A[Start] --> B[Input Password]
   B --> C[Dictionary Check]
@@ -120,10 +121,11 @@ flowchart TD
   F --> G[Structured Report]
   G --> H[End]
 ```
-Figure 1: End-to-end flow of password analysis steps in the CLI tool.
+Figure 1: End-to-end flow of password analysis steps in the CLI tool. (Source: `diagrams/process-flow.mmd`)
 
 ### 6.2 Data Flow (Figure 2)
 ```mermaid
+%%{init: { 'flowchart': { 'curve': 'basis' } } }%%
 flowchart LR
   User -->|password| CLI
   CLI -->|lookup| Dictionary[(common_passwords.txt)]
@@ -131,10 +133,11 @@ flowchart LR
   CLI -->|secure| Hashing[SHA-256]
   CLI -->|print| Report
 ```
-Figure 2: Data flow among the input, dictionary store, analysis functions, and reporting.
+Figure 2: Data flow among the input, dictionary store, analysis functions, and reporting. (Source: `diagrams/data-flow.mmd`)
 
 ### 6.3 Entropy Classification (Figure 3)
 ```mermaid
+%%{init: { 'flowchart': { 'curve': 'linear' } } }%%
 graph LR
   A[Entropy Bits] -->|< 28| V[Very Weak]
   A -->|28-35| W[Weak]
@@ -142,7 +145,7 @@ graph LR
   A -->|60-127| S[Strong]
   A -->|>= 128| VS[Very Strong]
 ```
-Figure 3: Mapping of entropy ranges to human-readable strength tiers.
+Figure 3: Mapping of entropy ranges to human-readable strength tiers. (Source: `diagrams/entropy-classes.mmd`)
 
 ### 6.4 Design Decisions
 - Dictionary scanning is I/O bound; for large lists, streaming comparison avoids high memory overhead.  
@@ -374,14 +377,24 @@ Note: For production storage, prefer Argon2id/scrypt/bcrypt with per-user salts 
 
 ### G. Use-Case Context Diagram (Figure A1)
 ```mermaid
+%%{init: { 'flowchart': { 'curve': 'linear' } } }%%
 flowchart LR
-  User -->|submit password| CLI_Tool
-  CLI_Tool -->|check| Dictionary[(Wordlists)]
-  CLI_Tool -->|compute| EntropyCalc[(Entropy)]
-  CLI_Tool -->|derive| Hashing[(Salted Hash)]
-  CLI_Tool -->|emit| Report[[Findings & Recommendations]]
+  subgraph User Space
+    U[User]
+  end
+  subgraph Analysis Workstation
+    T[CLI Tool]
+    D[(Wordlists)]
+    E[(Entropy Function)]
+    H[(Salted Hashing)]
+  end
+  U -->|submit password| T
+  T -->|check| D
+  T -->|compute| E
+  T -->|derive| H
+  T -->|report| R[[Audit Report]]
 ```
-Figure A1: Context of user interaction with the CLI tool and data stores.
+Figure A1: Context of user interaction with the CLI tool and data stores. (Source: `diagrams/context.mmd`)
 
 ### H. Operational Checklist
 - Validate runtime environment and secured workstation.

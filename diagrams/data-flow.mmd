@@ -1,0 +1,7 @@
+flowchart LR
+  User -->|password| CLI
+  CLI -->|lookup| Dictionary[(common_passwords.txt)]
+  CLI -->|analyze| EntropyCalc[(Entropy)]
+  CLI -->|derive| Hashing[(Salted Hash)]
+  CLI -->|emit| Report[[Findings & Recommendations]]
+

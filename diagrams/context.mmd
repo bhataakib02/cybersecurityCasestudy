@@ -1,0 +1,16 @@
+flowchart LR
+  subgraph User Space
+    U[User]
+  end
+  subgraph Analysis Workstation
+    T[CLI Tool]
+    D[(Wordlists)]
+    E[(Entropy Function)]
+    H[(Salted Hashing)]
+  end
+  U -->|password| T
+  T -->|check| D
+  T -->|compute| E
+  T -->|derive| H
+  T -->|report| R[[Audit Report]]
+
