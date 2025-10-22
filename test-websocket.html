@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>WebSocket Test</h1>
+    <div id="status">Connecting...</div>
+    <div id="data"></div>
+    <div id="updates"></div>
+
+    <script>
+        const status = document.getElementById('status');
+        const data = document.getElementById('data');
+        const updates = document.getElementById('updates');
+        
+        const socket = io('ws://localhost:4000', {
+            transports: ['websocket', 'polling']
+        });
+
+        socket.on('connect', () => {
+            status.innerHTML = '✅ Connected to WebSocket';
+            status.style.color = 'green';
+        });
+
+        socket.on('disconnect', () => {
+            status.innerHTML = '❌ Disconnected from WebSocket';
+            status.style.color = 'red';
+        });
+
+        socket.on('dashboard-update', (update) => {
+            console.log('Update received:', update);
+            updates.innerHTML = '<h3>Real-time Updates:</h3>' + 
+                '<pre>' + JSON.stringify(update, null, 2) + '</pre>';
+            
+            if (update.type === 'full-update') {
+                data.innerHTML = '<h3>Dashboard Data:</h3>' + 
+                    '<pre>' + JSON.stringify(update.data, null, 2) + '</pre>';
+            }
+        });
+
+        socket.on('connect_error', (error) => {
+            status.innerHTML = '❌ Connection Error: ' + error.message;
+            status.style.color = 'red';
+        });
+    </script>
+</body>
+</html>
+
+

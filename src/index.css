@@ -1,0 +1,218 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Enterprise Dark Theme - Professional Security Platform */
+    --background: 220 26% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 220 20% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 220 20% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 189 95% 55%;
+    --primary-foreground: 220 26% 6%;
+
+    --secondary: 220 15% 18%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 220 15% 15%;
+    --muted-foreground: 217 10% 64%;
+
+    --accent: 189 95% 55%;
+    --accent-foreground: 220 26% 6%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 210 40% 98%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 220 26% 6%;
+
+    --info: 189 95% 55%;
+    --info-foreground: 220 26% 6%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 189 95% 55%;
+
+    --chart-1: 189 95% 55%;
+    --chart-2: 142 71% 45%;
+    --chart-3: 38 92% 50%;
+    --chart-4: 271 81% 56%;
+    --chart-5: 0 72% 51%;
+
+    --sidebar-background: 220 26% 8%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 189 95% 55%;
+    --sidebar-primary-foreground: 220 26% 6%;
+    --sidebar-accent: 220 15% 18%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 220 15% 20%;
+    --sidebar-ring: 189 95% 55%;
+
+    /* Enterprise Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(189 95% 55%) 0%, hsl(189 95% 45%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(142 71% 45%) 0%, hsl(142 71% 35%) 100%);
+    --gradient-warning: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(38 92% 40%) 100%);
+    --gradient-danger: linear-gradient(135deg, hsl(0 72% 51%) 0%, hsl(0 72% 41%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(220 20% 12%) 0%, hsl(220 20% 8%) 100%);
+
+    /* Professional Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.6), 0 8px 10px -6px rgb(0 0 0 / 0.6);
+    --shadow-glow: 0 0 20px hsl(189 95% 55% / 0.3);
+    --shadow-glow-success: 0 0 20px hsl(142 71% 45% / 0.3);
+    --shadow-glow-danger: 0 0 20px hsl(0 72% 51% / 0.3);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv11", "ss01";
+    font-variation-settings: "opsz" auto;
+  }
+
+  /* Professional Typography */
+  .font-display {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-variant-ligatures: none;
+  }
+}
+
+@layer components {
+  /* Enterprise Card Variants */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg;
+    @apply hover:border-primary/50;
+  }
+
+  .card-glow {
+    @apply transition-all duration-300;
+    box-shadow: 0 0 0 1px hsl(var(--border)), var(--shadow-md);
+  }
+
+  .card-glow:hover {
+    box-shadow: 0 0 0 1px hsl(var(--primary)), var(--shadow-glow);
+  }
+
+  /* Status Indicators */
+  .status-success {
+    @apply text-success bg-success/10 border-success/30;
+  }
+
+  .status-warning {
+    @apply text-warning bg-warning/10 border-warning/30;
+  }
+
+  .status-danger {
+    @apply text-destructive bg-destructive/10 border-destructive/30;
+  }
+
+  .status-info {
+    @apply text-info bg-info/10 border-info/30;
+  }
+
+  /* Professional Buttons */
+  .btn-glow {
+    @apply transition-all duration-300;
+    box-shadow: 0 0 0 hsl(var(--primary) / 0);
+  }
+
+  .btn-glow:hover {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Animated Gradients */
+  .gradient-animate {
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Professional Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-muted/30;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-primary/50 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary;
+  }
+}
